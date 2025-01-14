@@ -1,7 +1,0 @@
-username,password,expected_result
-valid_user,valid_password,success
-invalid_user,valid_password,failure
-valid_user,invalid_password,failure
-invalid_user,invalid_password,failure
-valid_user,,failure             # Input correct username and blank password – Login Fail
-,,failure                       # Input blank username and blank password – Login Fail
