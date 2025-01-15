@@ -1,23 +1,23 @@
-# src/login_page.py
+# login_page.py
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import logging
 from constants import (
-    USERNAME_FIELD, 
-    PASSWORD_FIELD, 
+    USERNAME_FIELD,
+    PASSWORD_FIELD,
     SUBMIT_BUTTON,
-    SUCCESS_MESSAGE,
-    SUCCESS_MESSAGE_TEXT,
-    WAIT_TIME
+    SUCCESS_MESSAGE_CLASS,
+    ERROR_MESSAGE_CLASS,
+    WAIT_TIME,
 )
 
 class LoginPage:
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(self.driver, WAIT_TIME)
-        
+
     def enter_username(self, username):
         """Enter username in the username field"""
         try:
@@ -63,9 +63,9 @@ class LoginPage:
         """Check if login was successful"""
         try:
             success_element = self.wait.until(
-                EC.presence_of_element_located((By.CLASS_NAME, SUCCESS_MESSAGE))
+                EC.presence_of_element_located((By.CLASS_NAME, SUCCESS_MESSAGE_CLASS))
             )
-            return SUCCESS_MESSAGE_TEXT in success_element.text
+            return "Congratulations" in success_element.text or "successfully logged in" in success_element.text
         except Exception:
             return False
             
@@ -73,8 +73,12 @@ class LoginPage:
         """Get error message if login failed"""
         try:
             error_element = self.wait.until(
-                EC.presence_of_element_located((By.CLASS_NAME, "error"))
+                EC.presence_of_element_located((By.CLASS_NAME, ERROR_MESSAGE_CLASS))
             )
             return error_element.text
         except Exception:
             return "No error message found"
+
+    def get_current_url(self):
+        """Get the current URL of the page"""
+        return self.driver.current_url

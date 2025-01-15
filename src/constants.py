@@ -1,3 +1,4 @@
+# constants.py
 
 # Website URL
 BASE_URL = "https://practicetestautomation.com/practice-test-login/"
@@ -9,23 +10,15 @@ WAIT_TIME = 10  # seconds to wait for elements
 # Test data
 VALID_USERNAME = "student"
 VALID_PASSWORD = "Password123"
+INVALID_USERNAME = "incorrectUser"
+INVALID_PASSWORD = "incorrectPassword"
 
-# Web element IDs
+# Web element IDs and classes
 USERNAME_FIELD = "username"
 PASSWORD_FIELD = "password"
 SUBMIT_BUTTON = "submit"
-SUCCESS_MESSAGE = "post-title"
-
-# Directory paths
-LOGS_DIR = "logs"
-SCREENSHOTS_DIR = "screenshots"
-RESULTS_DIR = "results"
-DATA_DIR = "data"
-
-# File paths
-TEST_DATA_FILE = "data/test_cases.csv"
-LOG_FORMAT = "%(asctime)s - %(levelname)s - %(message)s"
-
-# Test result messages
-SUCCESS_MESSAGE_TEXT = "Logged In Successfully"
+SUCCESS_MESSAGE_CLASS = "post-title"
 ERROR_MESSAGE_CLASS = "error"
+
+# Logging configuration
+LOG_FORMAT = "%(asctime)s - %(levelname)s - %(message)s"
