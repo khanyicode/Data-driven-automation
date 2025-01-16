@@ -43,3 +43,57 @@ Stacktrace:
 === Testing Both invalid ===
 2025-01-16 19:38:20,429 - INFO - Username: incorrectUser, Password: incorrectPassword
 2025-01-16 19:38:23,487 - INFO - ✅ Test Passed: Correct error message: Your username is invalid!
+2025-01-16 19:42:41,393 - INFO - Navigated to https://practicetestautomation.com/practice-test-login/
+2025-01-16 19:42:43,428 - INFO - 
+=== Testing Testing with student ===
+2025-01-16 19:42:43,429 - INFO - Username: student, Password: Password123
+2025-01-16 19:42:51,055 - INFO - ✅ Test Passed: Successfully logged in
+2025-01-16 19:42:56,237 - INFO - 
+=== Testing Testing with incorrectUser ===
+2025-01-16 19:42:56,237 - INFO - Username: incorrectUser, Password: Password123
+2025-01-16 19:42:59,297 - INFO - ✅ Test Passed: Correct error message: Your username is invalid!
+2025-01-16 19:43:07,193 - INFO - 
+=== Testing Testing with student ===
+2025-01-16 19:43:07,193 - INFO - Username: student, Password: incorrectPassword
+2025-01-16 19:43:10,237 - INFO - ✅ Test Passed: Correct error message: Your password is invalid!
+2025-01-16 20:16:04,788 - ERROR - Fatal error during test execution: Message: timeout: Timed out receiving message from renderer: 30.000
+  (Session info: chrome=129.0.6668.58)
+Stacktrace:
+#0 0x5bf0722d913a <unknown>
+#1 0x5bf071fbf5e0 <unknown>
+#2 0x5bf071fa7733 <unknown>
+#3 0x5bf071fa7422 <unknown>
+#4 0x5bf071fa5493 <unknown>
+#5 0x5bf071fa5c4f <unknown>
+#6 0x5bf071fb5667 <unknown>
+#7 0x5bf071fcb9b4 <unknown>
+#8 0x5bf071fd0dfb <unknown>
+#9 0x5bf071fa635e <unknown>
+#10 0x5bf071fcb80f <unknown>
+#11 0x5bf072052c46 <unknown>
+#12 0x5bf0720338c3 <unknown>
+#13 0x5bf0720016b3 <unknown>
+#14 0x5bf07200268e <unknown>
+#15 0x5bf0722a3b3b <unknown>
+#16 0x5bf0722a7ac1 <unknown>
+#17 0x5bf072290335 <unknown>
+#18 0x5bf0722a8642 <unknown>
+#19 0x5bf07227549f <unknown>
+#20 0x5bf0722c8038 <unknown>
+#21 0x5bf0722c8203 <unknown>
+#22 0x5bf0722d7f8c <unknown>
+#23 0x7f9254294ac3 <unknown>
+
+2025-01-16 20:16:25,534 - INFO - Navigated to https://practicetestautomation.com/practice-test-login/
+2025-01-16 20:16:27,640 - INFO - 
+=== Testing Testing with student ===
+2025-01-16 20:16:27,641 - INFO - Username: student, Password: Password123
+2025-01-16 20:16:38,399 - INFO - ✅ Test Passed: Successfully logged in
+2025-01-16 20:16:42,894 - INFO - 
+=== Testing Testing with incorrectUser ===
+2025-01-16 20:16:42,895 - INFO - Username: incorrectUser, Password: Password123
+2025-01-16 20:16:45,962 - INFO - ✅ Test Passed: Correct error message: Your username is invalid!
+2025-01-16 20:16:53,718 - INFO - 
+=== Testing Testing with student ===
+2025-01-16 20:16:53,719 - INFO - Username: student, Password: incorrectPassword
+2025-01-16 20:16:56,860 - INFO - ✅ Test Passed: Correct error message: Your password is invalid!

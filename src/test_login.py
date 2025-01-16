@@ -4,7 +4,8 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.service import Service
 import logging
 import time
-from constants import BASE_URL, VALID_USERNAME, VALID_PASSWORD, INVALID_USERNAME, INVALID_PASSWORD
+import csv
+from constants import BASE_URL
 from login_page import LoginPage
 
 # Enhanced logging configuration
@@ -29,6 +30,26 @@ def setup_driver():
     
     return webdriver.Chrome(options=chrome_options)
 
+def load_test_data(file_path):
+    """Load test data from CSV file"""
+    test_cases = []
+    try:
+        with open(file_path, mode='r') as file:
+            csv_reader = csv.DictReader(file)
+            for row in csv_reader:
+                # Determine if this should be a successful login
+                expected_success = (row['username'] == 'student' and row['password'] == 'Password123')
+                test_cases.append({
+                    'username': row['username'],
+                    'password': row['password'],
+                    'expected_success': expected_success,
+                    'description': f"Testing with {row['username']}"
+                })
+        return test_cases
+    except FileNotFoundError:
+        logging.error(f"Test data file not found: {file_path}")
+        return []
+
 def main():
     driver = None
     try:
@@ -41,33 +62,11 @@ def main():
         
         login_page = LoginPage(driver)
         
-        # Test cases with expected results
-        test_cases = [
-            {
-                "username": VALID_USERNAME,
-                "password": VALID_PASSWORD,
-                "expected_success": True,
-                "description": "Valid credentials"
-            },
-            {
-                "username": INVALID_USERNAME,
-                "password": VALID_PASSWORD,
-                "expected_success": False,
-                "description": "Invalid username"
-            },
-            {
-                "username": VALID_USERNAME,
-                "password": INVALID_PASSWORD,
-                "expected_success": False,
-                "description": "Invalid password"
-            },
-            {
-                "username": INVALID_USERNAME,
-                "password": INVALID_PASSWORD,
-                "expected_success": False,
-                "description": "Both invalid"
-            }
-        ]
+        # Load test cases from CSV
+        test_cases = load_test_data('data/test_cases.csv')
+        if not test_cases:
+            logging.error("No test cases found in CSV. Exiting...")
+            return
             
         for case in test_cases:
             try:
