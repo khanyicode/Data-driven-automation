@@ -1,84 +1,80 @@
-# login_page.py
-
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import logging
-from constants import (
-    USERNAME_FIELD,
-    PASSWORD_FIELD,
-    SUBMIT_BUTTON,
-    SUCCESS_MESSAGE_CLASS,
-    ERROR_MESSAGE_CLASS,
-    WAIT_TIME,
-)
+from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException, StaleElementReferenceException
+import time
 
 class LoginPage:
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(self.driver, WAIT_TIME)
+        self.wait = WebDriverWait(driver, 10, poll_frequency=0.5,
+                                ignored_exceptions=[StaleElementReferenceException])
+        
+        # Updated locators with multiple strategies
+        self.username_field = (By.CSS_SELECTOR, "#username")
+        self.password_field = (By.CSS_SELECTOR, "#password")
+        self.submit_button = (By.CSS_SELECTOR, "button#submit")
+        self.error_message = (By.CSS_SELECTOR, "#error")
+        self.success_message = (By.CSS_SELECTOR, ".post-title")
+        self.logout_button = (By.LINK_TEXT, "Log out")
+
+    def wait_and_find_element(self, locator):
+        """Utility method to wait for and find an element with better error handling"""
+        try:
+            return self.wait.until(EC.presence_of_element_located(locator))
+        except TimeoutException:
+            # Try refreshing the page once if element not found
+            self.driver.refresh()
+            return self.wait.until(EC.presence_of_element_located(locator))
 
     def enter_username(self, username):
-        """Enter username in the username field"""
-        try:
-            username_element = self.wait.until(
-                EC.presence_of_element_located((By.ID, USERNAME_FIELD))
-            )
-            username_element.clear()
-            username_element.send_keys(username)
-            logging.info(f"Entered username: {username}")
-            return True
-        except Exception as e:
-            logging.error(f"Error entering username: {str(e)}")
-            return False
-            
+        element = self.wait_and_find_element(self.username_field)
+        element.clear()
+        time.sleep(0.5)  # Small delay after clear
+        element.send_keys(username)
+        
     def enter_password(self, password):
-        """Enter password in the password field"""
-        try:
-            password_element = self.wait.until(
-                EC.presence_of_element_located((By.ID, PASSWORD_FIELD))
-            )
-            password_element.clear()
-            password_element.send_keys(password)
-            logging.info("Entered password")
-            return True
-        except Exception as e:
-            logging.error(f"Error entering password: {str(e)}")
-            return False
-            
+        element = self.wait_and_find_element(self.password_field)
+        element.clear()
+        time.sleep(0.5)  # Small delay after clear
+        element.send_keys(password)
+        
     def click_submit(self):
-        """Click the submit button"""
-        try:
-            submit_button = self.wait.until(
-                EC.element_to_be_clickable((By.ID, SUBMIT_BUTTON))
-            )
-            submit_button.click()
-            logging.info("Clicked submit button")
-            return True
-        except Exception as e:
-            logging.error(f"Error clicking submit button: {str(e)}")
-            return False
-            
-    def is_login_successful(self):
-        """Check if login was successful"""
-        try:
-            success_element = self.wait.until(
-                EC.presence_of_element_located((By.CLASS_NAME, SUCCESS_MESSAGE_CLASS))
-            )
-            return "Congratulations" in success_element.text or "successfully logged in" in success_element.text
-        except Exception:
-            return False
-            
+        element = self.wait.until(EC.element_to_be_clickable(self.submit_button))
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", element)
+        time.sleep(0.5)  # Small delay before click
+        element.click()
+        time.sleep(1)  # Wait for form submission
+        
     def get_error_message(self):
-        """Get error message if login failed"""
         try:
-            error_element = self.wait.until(
-                EC.presence_of_element_located((By.CLASS_NAME, ERROR_MESSAGE_CLASS))
+            element = self.wait.until(EC.visibility_of_element_located(self.error_message))
+            return element.text
+        except TimeoutException:
+            return None
+        
+    def is_login_successful(self):
+        try:
+            # First check for success message
+            success_element = self.wait.until(
+                EC.presence_of_element_located(self.success_message)
             )
-            return error_element.text
-        except Exception:
-            return "No error message found"
+            return "Logged In Successfully" in success_element.text
+        except TimeoutException:
+            try:
+                # Alternative check for logout button
+                self.wait.until(EC.presence_of_element_located(self.logout_button))
+                return True
+            except TimeoutException:
+                return False
 
-    def get_current_url(self):
-        """Get the current URL of the page"""
-        return self.driver.current_url
+    def reset_session(self):
+        """Reset the session by navigating back to login page"""
+        try:
+            self.driver.delete_all_cookies()
+            self.driver.get("https://practicetestautomation.com/practice-test-login/")
+            self.wait.until(EC.presence_of_element_located(self.username_field))
+            time.sleep(1)  # Allow page to fully load
+        except Exception as e:
+            print(f"Error during reset: {str(e)}")
+            self.driver.refresh()

@@ -1,0 +1,45 @@
+2025-01-16 19:37:24,734 - ERROR - Fatal error during test execution: Message: timeout: Timed out receiving message from renderer: 30.000
+  (Session info: chrome=129.0.6668.58)
+Stacktrace:
+#0 0x59ed0c24e13a <unknown>
+#1 0x59ed0bf345e0 <unknown>
+#2 0x59ed0bf1c733 <unknown>
+#3 0x59ed0bf1c422 <unknown>
+#4 0x59ed0bf1a493 <unknown>
+#5 0x59ed0bf1ac4f <unknown>
+#6 0x59ed0bf2a667 <unknown>
+#7 0x59ed0bf409b4 <unknown>
+#8 0x59ed0bf45dfb <unknown>
+#9 0x59ed0bf1b35e <unknown>
+#10 0x59ed0bf4080f <unknown>
+#11 0x59ed0bfc7c46 <unknown>
+#12 0x59ed0bfa88c3 <unknown>
+#13 0x59ed0bf766b3 <unknown>
+#14 0x59ed0bf7768e <unknown>
+#15 0x59ed0c218b3b <unknown>
+#16 0x59ed0c21cac1 <unknown>
+#17 0x59ed0c205335 <unknown>
+#18 0x59ed0c21d642 <unknown>
+#19 0x59ed0c1ea49f <unknown>
+#20 0x59ed0c23d038 <unknown>
+#21 0x59ed0c23d203 <unknown>
+#22 0x59ed0c24cf8c <unknown>
+#23 0x7490f9294ac3 <unknown>
+
+2025-01-16 19:37:43,988 - INFO - Navigated to https://practicetestautomation.com/practice-test-login/
+2025-01-16 19:37:45,997 - INFO - 
+=== Testing Valid credentials ===
+2025-01-16 19:37:45,998 - INFO - Username: student, Password: Password123
+2025-01-16 19:37:54,190 - INFO - ✅ Test Passed: Successfully logged in
+2025-01-16 19:37:59,633 - INFO - 
+=== Testing Invalid username ===
+2025-01-16 19:37:59,633 - INFO - Username: incorrectUser, Password: Password123
+2025-01-16 19:38:02,897 - INFO - ✅ Test Passed: Correct error message: Your username is invalid!
+2025-01-16 19:38:09,957 - INFO - 
+=== Testing Invalid password ===
+2025-01-16 19:38:09,957 - INFO - Username: student, Password: incorrectPassword
+2025-01-16 19:38:13,168 - INFO - ✅ Test Passed: Correct error message: Your password is invalid!
+2025-01-16 19:38:20,429 - INFO - 
+=== Testing Both invalid ===
+2025-01-16 19:38:20,429 - INFO - Username: incorrectUser, Password: incorrectPassword
+2025-01-16 19:38:23,487 - INFO - ✅ Test Passed: Correct error message: Your username is invalid!
