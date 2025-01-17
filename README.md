@@ -1,7 +1,7 @@
 # Data Driven Automation
 
 ## Overview
-This is a Selenium-based test automation framework designed to validate login functionality. The framework uses Python and implements the Page Object Model (POM) pattern to test various login scenarios on a practice website. A key feature of this framework is its data-driven testing approach, demonstrating real-world testing practices used by professional development teams.
+This is a Selenium-based test automation framework designed to validate login functionality of [Practice Test Automation](https://practicetestautomation.com/practice-test-login/) website The framework uses Python and implements the Page Object Model (POM) pattern to test various login scenarios on a practice website. A key feature of this framework is its data-driven testing approach, demonstrating real-world testing practices used by professional development teams.
 
 ## Features
 - Automated login testing with multiple test cases
@@ -18,8 +18,6 @@ This is a Selenium-based test automation framework designed to validate login fu
 - Required Python packages:
   - selenium
   - pytest
-
-## Project Structure
 
 ## Data-Driven Testing Approach
 This framework implements data-driven testing, a practice widely used in professional development teams. Instead of hardcoding test data in the source code, the framework reads test scenarios from external CSV files. This approach offers several advantages:
