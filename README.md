@@ -40,10 +40,11 @@ Each row represents a unique test case, allowing for:
 ## Installation
 1. Clone the repository
 2. Install required packages:
+3. 
    ```bash
    pip install selenium
    ```
-3. Ensure ChromeDriver is in your system PATH
+4. Ensure ChromeDriver is in your system PATH
 
 ## Configuration
 Key configurations are stored in `constants.py`:
