@@ -28,7 +28,7 @@ This framework implements data-driven testing, a practice widely used in profess
 - **Flexibility**: Easy to add new test scenarios or modify existing ones
 
 
-### Test Data Structure
+## Test Data Structure
 The CSV file (`data/test_cases.csv`) contains test scenarios with the following structure:
 
 Each row represents a unique test case, allowing for:
